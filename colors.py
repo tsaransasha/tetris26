@@ -1,5 +1,4 @@
-import random
-import tkinter as tk
+
 
 COLS = 10
 ROWS = 20
