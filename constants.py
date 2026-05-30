@@ -5,6 +5,7 @@ DROP_MS = 650
 STAR_COUNT = 140
 STAR_BG = "#060d17"
 
+
 SHAPES: dict[str, list[tuple[int, int]]] = {
     "I": [(0, 0), (0, 1), (0, 2), (0, 3)],
     "O": [(0, 0), (0, 1), (1, 0), (1, 1)],
