@@ -257,6 +257,9 @@ class GameScreen(Screen):
         if self.lbl:
             self.lbl.config(text=str(score))
 
+
+
+
     def update_time(self, elapsed: int):
         if self.time_label:
             m, s = elapsed // 60, elapsed % 60
