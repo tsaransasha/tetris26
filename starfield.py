@@ -39,7 +39,7 @@ class StarField:
             self._after_id = None
 
     def _tick(self):
-        self._canvas.delete("all")
+        self._canvas.delete("star")  # було delete("all")
         for star in self._stars:
             x, y, size, speed, bright = star
             c = int(bright)
@@ -47,7 +47,7 @@ class StarField:
             color = f"#{r_ch:02x}{r_ch:02x}{c:02x}"
             self._canvas.create_oval(
                 x - size, y - size, x + size, y + size,
-                fill=color, outline="",
+                fill=color, outline="", tags="star",  # ← додали тег
             )
             star[1] += speed
             if star[1] > self._h + size:
