@@ -30,7 +30,6 @@ class StartScreen(Screen):
         canvas = tk.Canvas(self.root, width=W, height=H, bg=STAR_BG, highlightthickness=0)
         canvas.place(x=0, y=0)
 
-        self._draw_planet(canvas, W, H)
         self._draw_title()
         self._draw_launch_button()
         self._draw_hint()
@@ -38,22 +37,9 @@ class StartScreen(Screen):
         self._star_field = StarField(self.root, canvas, W, H)
         self._star_field.start()
 
-    def _draw_planet(self, canvas: tk.Canvas, W: int, H: int):
-        cx, cy, pr = W // 2, 165, 54
-        canvas.create_oval(cx - pr - 12, cy - pr - 12, cx + pr + 12, cy + pr + 12,
-                           fill="#001428", outline="#004488", width=2)
-        for i, col in enumerate(["#0a2a50", "#0d3a6e", "#1055a0", "#1a6ec0", "#2288e0"]):
-            off = i * 10
-            canvas.create_oval(cx - pr + off // 2, cy - pr + off,
-                                cx + pr - off // 2, cy + pr, fill=col, outline="")
-        for rk, col, w in [(62, "#1a4a80", 3), (72, "#0d3060", 2), (80, "#082050", 1)]:
-            canvas.create_oval(cx - rk, cy - rk // 4, cx + rk, cy + rk // 4,
-                                outline=col, width=w)
-        canvas.create_oval(cx - 20, cy - 22, cx + 4, cy - 4, fill="#4499cc", outline="")
-
     def _draw_title(self):
         frame = tk.Frame(self.root, bg=STAR_BG)
-        frame.place(relx=0.5, rely=0.60, anchor="center")
+        frame.place(relx=0.5, rely=0.40, anchor="center")
         tk.Label(frame, text="✦  S P A C E  ✦", fg="#5599ff", bg=STAR_BG,
                  font=("Consolas", 11, "bold")).pack()
         tk.Label(frame, text="TETRIS", fg="#00e5ff", bg=STAR_BG,
@@ -69,7 +55,7 @@ class StartScreen(Screen):
                         font=("Consolas", 15, "bold"), width=12, relief="flat", bd=0,
                         activebackground="#0055aa", activeforeground="#ffffff",
                         cursor="hand2", command=self._on_start)
-        btn.place(relx=0.5, rely=0.78, anchor="center")
+        btn.place(relx=0.5, rely=0.60, anchor="center")
         btn.bind("<Enter>", _on_enter)
         btn.bind("<Leave>", _on_leave)
 
@@ -256,9 +242,6 @@ class GameScreen(Screen):
     def update_score(self, score: int):
         if self.lbl:
             self.lbl.config(text=str(score))
-
-
-
 
     def update_time(self, elapsed: int):
         if self.time_label:
