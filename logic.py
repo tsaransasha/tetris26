@@ -1,5 +1,5 @@
 import random
-from constants import COLS, ROWS, SHAPES, COLORS
+from constants import COLS, ROWS, SHAPES, DROP_MS, MIN_DROP_MS, SPEED_UP_PER_LINE, SCORE_BONUS_PER_LINE
 
 
 def rotate_cw(cells):
@@ -20,14 +20,19 @@ class GameLogic:
     def __init__(self):
         self.board: list[list[str | None]] = [[None] * COLS for _ in range(ROWS)]
         self.score = 0
+        self.lines_cleared_total = 0
+        self.level = 1
+        self.drop_ms = DROP_MS
         self.game_over = False
         self.current: str | None = None
+        self.next_piece: str = random.choice(list(SHAPES.keys()))
         self.rotation = 0
         self.cr = 0
         self.cc = 0
 
     def spawn(self) -> bool:
-        self.current = random.choice(list(SHAPES.keys()))
+        self.current = self.next_piece
+        self.next_piece = random.choice(list(SHAPES.keys()))
         self.rotation = 0
         cells = piece_cells(self.current, self.rotation)
         w = max(c for _, c in cells) + 1
@@ -87,8 +92,19 @@ class GameLogic:
                 self.board[r][c] = self.current
         cleared = self._clear_lines()
         if cleared:
-            self.score += {1: 100, 2: 300, 3: 500, 4: 800}.get(cleared, 800)
+            self._add_score(cleared)
+            self._speed_up(cleared)
+            self.level += cleared
         return cleared
+
+    def _add_score(self, cleared: int):
+        base_score = {1: 100, 2: 300, 3: 500, 4: 800}.get(cleared, 800)
+        multiplier = SCORE_BONUS_PER_LINE ** self.lines_cleared_total
+        self.score += round(base_score * multiplier)
+        self.lines_cleared_total += cleared
+
+    def _speed_up(self, cleared: int):
+        self.drop_ms = max(MIN_DROP_MS, round(self.drop_ms * (SPEED_UP_PER_LINE ** cleared)))
 
     def _clear_lines(self) -> int:
         kept = [row for row in self.board if not all(row)]
