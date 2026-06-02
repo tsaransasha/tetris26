@@ -1,83 +1,109 @@
-✦ Space Tetris
+# ✦ Space Tetris
 
-A classic Tetris game implemented in Python using the built-in **tkinter** library. The project includes complete game logic, an animated starfield background, a landing-preview "ghost" piece, score tracking, and an in-game timer.
+A classic Tetris game developed in Python using the built-in tkinter library.  
+The project implements complete Tetris gameplay, score tracking, level progression, a next-piece preview, a ghost piece, an in-game timer, and an animated space-style interface.
 
-🌟 Key Features
+---
 
-* **Main Menu:** A start screen with an animated starfield background and a `LAUNCH` button.
-* **Animated Starfield:** Stars of varying size, brightness, and speed fall continuously in the background, with each star recycled to the top once it leaves the screen.
-* **Game Logic:**
-    * Full implementation of the 7 classic Tetris shapes (I, O, T, S, Z, J, L).
-    * Piece movement, rotation (with wall-kick), and instant "Hard Drop".
-    * Collision detection with the walls, the floor, and other locked pieces.
-    * Clearing completed lines and scoring points.
-    * A "ghost" outline that shows where the current piece will land.
-* **Interface and Rendering:**
-    * Rendering of the game board, grid, and the falling piece with a neon, 3D-style cube look.
-    * A top panel that displays the current score and the timer.
-    * A "Game Over" screen showing the final score, with clickable buttons to restart or return to the menu.
-* **Timer:** An in-game timer that tracks the total session time.
+## Features
 
- 🎮 How to Play
+### Main Menu
+- Animated falling snow/particle background.
+- Centered TETRIS title.
+- Clean interface without decorative arrows.
+- LAUNCH button with smooth hover effects.
 
-* **Piece Movement:**
-    * `◄` (Left Arrow): Move the piece left.
-    * `►` (Right Arrow): Move the piece right.
-    * `▼` (Down Arrow): Hard drop — instantly drop and lock the piece.
-* **Rotation:**
-    * `▲` (Up Arrow): Rotate the piece clockwise.
-* **Game Over Screen (mouse):**
-    * Click **RESTART** to start a new game.
-    * Click **MAIN MENU** to return to the start screen.
+### Gameplay
+- Classic Tetris mechanics.
+- Random tetromino generation.
+- Automatic line clearing.
+- Score system.
+- Level progression based on score.
+- Increasing game speed at higher levels.
+- Next-piece preview window.
+- Ghost piece showing the landing position.
+- Game Over screen.
+- Pause functionality.
 
-> Scoring: 100 / 300 / 500 / 800 points for clearing 1 / 2 / 3 / 4 lines at once.
+### Visual Effects
+- Animated snow particles in the main menu.
+- Animated snow particles in the empty side areas during gameplay.
+- Space-inspired color palette.
+- Smooth interface updates.
 
-## 🛠️ Installation and Setup
+### Statistics
+- Current score display.
+- Current level display.
+- Game timer.
+- Lines cleared counter.
 
-To run the game you only need Python — no external libraries are required.
+---
 
-**Requirements**
+## Controls
 
-* Python 3.10 or newer (the code uses the `X | None` type-annotation syntax).
-* `tkinter`, which ships with the standard Python distribution. On some Linux systems you may need to install it separately, e.g. `sudo apt install python3-tk`.
+| Key | Action |
+|------|---------|
+| ← | Move piece left |
+| → | Move piece right |
+| ↓ | Soft drop |
+| ↑ | Rotate piece |
+| Space | Hard drop |
+| P | Pause / Resume |
+| Esc | Exit game |
 
-**Steps**
+---
 
-1. Clone the repository (replace the URL with your own):
+## Project Structure
 
-```
-git clone git@github.com:tsaransasha/tetris26.git
-cd tetris26
-```
+tetris/
+│
+├── main.py          # Application entry point
+├── app.py           # Main application initialization
+├── logic.py         # Tetris game logic
+├── screens.py       # Menu, game and game-over screens
+├── constants.py     # Constants and configuration values
+└── README.md
+---
 
-2. No third-party dependencies are needed — `tkinter` is part of the standard library.
+## Game Logic
 
-3. Run the game. The entry point is `main-2.py`:
+The game is based on standard Tetris rules:
 
-```
-python main-2.py
-```
+1. Random tetrominoes spawn at the top of the board.
+2. The player moves and rotates pieces.
+3. Completed rows are removed.
+4. Points are awarded for cleared lines.
+5. The level increases after reaching score thresholds.
+6. Falling speed increases with each level.
+7. The game ends when new pieces can no longer spawn.
 
-## 📁 Project Structure
+---
 
-| File | Responsibility |
-|------|----------------|
-| `constants.py` | Settings: board size, cell size, drop speed, piece shapes, and the color palette. |
-| `logic.py`     | Game state and rules (`GameLogic`): the board, the current piece, movement, rotation, collisions, line clearing, and scoring. |
-| `screens.py`   | User interface: the menu screen (`StartScreen`) and the game screen (`GameScreen`), plus board and piece rendering. |
-| `starfield.py` | The animated starfield background (`StarField`). |
-| `app.py`       | The main `TetrisApp` class: creates the window, switches screens, handles keyboard input, and runs the game loop. |
-| `main-2.py`    | The entry point — launches the application (`TetrisApp().run()`). |
+## Technologies
 
-## 🧩 How It Works
+- Python 3.x
+- Tkinter
 
-The project separates concerns across three layers:
+No external libraries are required.
 
-* **Logic (`logic.py`)** — the `GameLogic` class knows the rules but draws nothing.
-* **Interface (`screens.py`)** — the screens only render the state provided by `GameLogic`.
-* **Control (`app.py`)** — `TetrisApp` ties everything together: it shows the start screen, starts the game on `LAUNCH`, binds the keys, and schedules three repeating loops via `tkinter`'s `after()`:
-    * the piece falls every `DROP_MS` milliseconds (`_gravity_tick`);
-    * the timer updates once per second (`_update_timer`);
-    * the board is redrawn roughly 60 times per second (`_draw_loop`).
+## Installation
 
-Screens communicate with the controller through callbacks (`on_start`, `on_restart`, `on_menu`), and switching screens follows a simple "destroy the old one, build the new one" pattern.
+Clone the repository: git@github.com:tsaransasha/tetris26.git
+
+git clone <repository-url>
+Open the project directory: 
+
+cd tetris
+Run the game:
+
+py main-2.py
+---
+ Author
+
+Created as a Python/Tkinter educational project demonstrating:
+- Object-oriented programming
+- GUI development
+- Event handling
+- Game loop implementation
+- Collision detection
+- State management
