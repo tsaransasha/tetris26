@@ -88,7 +88,7 @@ No external libraries are required.
 
 ## Installation
 
-Clone the repository:
+Clone the repository: git@github.com:tsaransasha/tetris26.git
 
 git clone <repository-url>
 Open the project directory: 
