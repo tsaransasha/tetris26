@@ -147,7 +147,6 @@ class GameScreen(Screen):
     def _make_game_stars(self, count: int) -> list[list[float]]:
         stars = []
         for _ in range(count):
-            # зорі тільки зліва або справа від ігрового поля
             if random.choice([True, False]):
                 x = random.randint(4, max(5, self.x0 - 8))
             else:
